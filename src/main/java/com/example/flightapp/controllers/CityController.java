@@ -1,7 +1,7 @@
 package com.example.flightapp.controllers;
 
 import com.example.flightapp.entities.City;
-import com.example.flightapp.repositories.CityRepository;
+import com.example.flightapp.services.CityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,36 +12,36 @@ import java.util.Set;
 public class CityController {
 
     @Autowired
-    private CityRepository cityRepository;
+    private CityService cityService;
 
     @GetMapping("/cities")
     public List<City> getCities(){
-        return cityRepository.findAll();
+        return cityService.getCities();
     }
 
     @GetMapping("/cities/{id}")
     public City getCityById(@PathVariable("id") int id){
-        return cityRepository.findById(id).get();
+        return cityService.getCityById(id);
     }
 
     @GetMapping("/cities/country/{country}")
     public Set<City> getCityByCountry(@PathVariable("country") String country){
-        return cityRepository.findCityByCountry(country);
+        return cityService.getCityByCountry(country);
     }
 
     @GetMapping("/cities/name/{name}")
     public City getCityByName(@PathVariable("name") String name){
-        return cityRepository.findCityByName(name);
+        return cityService.getCityByName(name);
     }
 
     @PostMapping("/cities")
     public City saveCity(@RequestBody City city){
-        return cityRepository.save(city);
+        return cityService.saveCity(city);
     }
 
     @DeleteMapping("/cities/{id}")
     public void deleteCity(@PathVariable("id") int id){
-        cityRepository.deleteById(id);
+        cityService.deleteCity(id);
     }
 
 }

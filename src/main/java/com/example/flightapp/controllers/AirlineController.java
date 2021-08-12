@@ -1,7 +1,7 @@
 package com.example.flightapp.controllers;
 
 import com.example.flightapp.entities.Airline;
-import com.example.flightapp.repositories.AirlineRepository;
+import com.example.flightapp.services.AirlineService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -11,36 +11,36 @@ import java.util.Set;
 public class AirlineController {
 
     @Autowired
-    private AirlineRepository airlineRepository;
+    private AirlineService airlineService;
 
     @GetMapping("/airlines")
     public List<Airline> getAirlines(){
-        return airlineRepository.findAll();
+        return airlineService.getAirlines();
     }
 
     @GetMapping("/airlines/{id}")
     public Airline getAirline(@PathVariable("id") int id){
-        return airlineRepository.findById(id).get();
+        return airlineService.getAirline(id);
     }
 
     @GetMapping("/airlines/country/{country}")
     public Set<Airline> getAirlineByCountry(@PathVariable("country") String country){
-        return airlineRepository.findAirlineByCountry(country);
+        return airlineService.getAirlineByCountry(country);
     }
 
     @GetMapping("/airlines/name/{name}")
     public Airline getAirlineByName(@PathVariable("name") String name){
-        return airlineRepository.findAirlineByName(name);
+        return airlineService.getAirlineByName(name);
     }
 
     @PostMapping("/airlines")
     public Airline saveAirline(@RequestBody Airline airline){
-        return airlineRepository.save(airline);
+        return airlineService.saveAirline(airline);
     }
 
     @DeleteMapping("/airlines/{id}")
     public void deleteAirline(@PathVariable("id") int id){
-        airlineRepository.deleteById(id);
+        airlineService.deleteAirline(id);
     }
 
 }
