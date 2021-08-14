@@ -2,13 +2,15 @@ version: '2'
 services:
 
   flight-app:
-    build: /Users/samuel/IdeaProjects/flight-app
+    container_name: Flight-App
+    build: . #build running on this project folder
     ports:
       - "8080:8080"
     depends_on:
       - "db-flight-app"
 
   db-flight-app:
+    container_name: Flight-App-DB
     image: postgres
     environment:
       POSTGRES_PASSWORD: password
